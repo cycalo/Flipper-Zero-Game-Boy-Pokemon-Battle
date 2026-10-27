@@ -1,0 +1,47 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  fap:
+    name: FAP (Momentum SDK)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      # Only gblink is needed for the FAP; skip the large SameBoy submodule.
+      - name: Fetch gblink submodule
+        run: git submodule update --init --depth 1 lib/flipper-gblink
+      - name: Build with ufbt
+        uses: flipperdevices/flipperzero-ufbt-action@v0.1
+        id: build-app
+        with:
+          sdk-index-url: https://up.momentum-fw.dev/firmware/directory.json
+          sdk-channel: release
+      - name: Size gate (FAP code + data <= 100 KiB)
+        run: python3 tools/size_gate.py
+      - name: Upload FAP
+        uses: actions/upload-artifact@v6
+        with:
+          name: pkmn_battle-${{ steps.build-app.outputs.suffix }}
+          path: ${{ steps.build-app.outputs.fap-artifacts }}
+
+  host:
+    name: Host tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      # SameBoy, so the emulator harness is compile-checked too (it needs a
+      # user-supplied ROM to run, so its tests are not registered here).
+      - name: Fetch SameBoy submodule
+        run: git submodule update --init --depth 1 host/third_party/SameBoy
+      - name: Install toolchain
+        run: sudo apt-get update && sudo apt-get install -y ninja-build clang
+      - name: Configure
+        run: cmake -G Ninja -B build-host -DCMAKE_C_COMPILER=clang
+      - name: Build
+        run: ninja -C build-host
+      - name: Test
+        run: ctest --test-dir build-host --output-on-failure

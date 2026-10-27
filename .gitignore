@@ -1,0 +1,38 @@
+# Local reference clone of the trade app (not part of this repo)
+/Flipper-Zero-Game-Boy-Pokemon-Trading/
+
+# Nintendo content and emulator state: never commit
+*.gbc
+*.gb
+*.sav
+*.state
+*.sn[0-9]
+*.rtc
+*.srm
+/local/
+
+# Build output
+/dist/
+/build/
+/build-*/
+/.ufbt/
+.env
+*.o
+*.obj
+*.exe
+*.pdb
+*.ppm
+
+# Data generator caches (pokecrystal checkout lives here)
+/tools/gen/.cache/
+__pycache__/
+*.pyc
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Host logs captured from the device
+*.pbl

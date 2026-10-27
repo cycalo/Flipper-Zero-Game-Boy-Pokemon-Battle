@@ -1,0 +1,6 @@
+[submodule "lib/flipper-gblink"]
+	path = lib/flipper-gblink
+	url = https://github.com/kbembedded/flipper-gblink
+[submodule "host/third_party/SameBoy"]
+	path = host/third_party/SameBoy
+	url = https://github.com/LIJI32/SameBoy
