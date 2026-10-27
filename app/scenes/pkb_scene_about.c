@@ -11,7 +11,8 @@ static const char about_text[] =
     "receptionist and pick the\n"
     "Colosseum.\n\n"
     "github.com/cycalo/\n"
-    "FlipperPkMBattle\n\n"
+    "Flipper-Zero-Game-\n"
+    "Boy-Pokemon-Battle\n\n"
     "Not affiliated with\n"
     "Nintendo, Game Freak or\n"
     "The Pokemon Company.";

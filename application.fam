@@ -15,7 +15,7 @@ App(
     fap_icon="icon_10px.png",
     fap_file_assets="files",
     fap_author="cycalo",
-    fap_weburl="https://github.com/cycalo/FlipperPkMBattle",
+    fap_weburl="https://github.com/cycalo/Flipper-Zero-Game-Boy-Pokemon-Battle",
     fap_description="Link-cable battle opponent for Pokemon Crystal (Cable Club Colosseum)",
     sources=[
         "app/pkb_app.c",

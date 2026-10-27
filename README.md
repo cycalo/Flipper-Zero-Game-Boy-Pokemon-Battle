@@ -1,6 +1,6 @@
 # Pokémon Crystal Battle Trainer for Flipper Zero
 
-[![Build](https://github.com/cycalo/FlipperPkMBattle/actions/workflows/build.yml/badge.svg)](https://github.com/cycalo/FlipperPkMBattle/actions/workflows/build.yml)
+[![Build](https://github.com/cycalo/Flipper-Zero-Game-Boy-Pokemon-Battle/actions/workflows/build.yml/badge.svg)](https://github.com/cycalo/Flipper-Zero-Game-Boy-Pokemon-Battle/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Battle your Pokémon Crystal team against a Flipper Zero. The Flipper plays the **second Game
@@ -46,7 +46,7 @@ Oak) and fight it in the real game, with a battle AI choosing the Flipper's move
 ## Install
 
 Download `pkmn_battle.fap` from the latest
-[build](https://github.com/cycalo/FlipperPkMBattle/actions/workflows/build.yml) and copy it to
+[build](https://github.com/cycalo/Flipper-Zero-Game-Boy-Pokemon-Battle/actions/workflows/build.yml) and copy it to
 `SD/apps/GPIO/` on the Flipper, or build it yourself (see [Building](#building-the-flipper-app)).
 It appears as **Apps → GPIO → [GBC] Pokemon Battle**.
 
@@ -226,4 +226,4 @@ beyond game-data tables; the emulator harness needs your own legally dumped ROM.
 
 Not affiliated with or endorsed by Nintendo, Game Freak or The Pokémon Company.
 
-Questions, bugs and contributions: [open an issue](https://github.com/cycalo/FlipperPkMBattle/issues).
+Questions, bugs and contributions: [open an issue](https://github.com/cycalo/Flipper-Zero-Game-Boy-Pokemon-Battle/issues).
