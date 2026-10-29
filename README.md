@@ -29,8 +29,9 @@ Oak) and fight it in the real game, with a battle AI choosing the Flipper's move
 
 ## What you need
 
-- A Flipper Zero on [Momentum](https://momentum-fw.dev/) firmware. The FAP's API version must match
-  your firmware; this tree targets Momentum `mntm-012` (API 87.1).
+- A Flipper Zero on [official firmware](https://flipperzero.one/update) **Release** (or matching
+  API). This tree builds against official `release` (verified on 1.5.1 / API 88.2). Custom
+  firmware such as [Momentum](https://momentum-fw.dev/) also works when its API matches the FAP.
 - A Game Boy Color with **Pokémon Crystal** (US/Europe). Your save must have
   reached a Pokémon Center 2F, where the Cable Club is.
 - A way to connect a Game Boy link cable to the Flipper's GPIO header. This project was built and
@@ -133,6 +134,13 @@ project-local, so a globally installed one is left alone:
 ```bash
 git submodule update --init lib/flipper-gblink
 python -m ufbt dotenv_create
+python -m ufbt update
+python -m ufbt
+```
+
+For Momentum firmware, point ufbt at Momentum's index instead:
+
+```bash
 python -m ufbt update --index-url=https://up.momentum-fw.dev/firmware/directory.json
 python -m ufbt
 ```

@@ -7,26 +7,55 @@ on:
 
 jobs:
   fap:
-    name: FAP (Momentum SDK)
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: official
+            sdk-channel: release
+            sdk-index-url: ""
+            size-gate: true
+          - name: momentum
+            sdk-channel: release
+            sdk-index-url: https://up.momentum-fw.dev/firmware/directory.json
+            size-gate: false
+    name: FAP (${{ matrix.name }})
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      # Only gblink is needed for the FAP; skip the large SameBoy submodule.
       - name: Fetch gblink submodule
         run: git submodule update --init --depth 1 lib/flipper-gblink
-      - name: Build with ufbt
+      - name: Build with ufbt (official)
+        if: matrix.sdk-index-url == ''
         uses: flipperdevices/flipperzero-ufbt-action@v0.1
-        id: build-app
+        id: build-official
         with:
-          sdk-index-url: https://up.momentum-fw.dev/firmware/directory.json
-          sdk-channel: release
+          sdk-channel: ${{ matrix.sdk-channel }}
+      - name: Build with ufbt (Momentum)
+        if: matrix.sdk-index-url != ''
+        uses: flipperdevices/flipperzero-ufbt-action@v0.1
+        id: build-momentum
+        with:
+          sdk-channel: ${{ matrix.sdk-channel }}
+          sdk-index-url: ${{ matrix.sdk-index-url }}
       - name: Size gate (FAP code + data <= 100 KiB)
+        if: matrix.size-gate
         run: python3 tools/size_gate.py
+      - name: Export build outputs
+        id: outs
+        run: |
+          if [ "${{ matrix.name }}" = "official" ]; then
+            echo "suffix=${{ steps.build-official.outputs.suffix }}" >> "$GITHUB_OUTPUT"
+            echo "artifacts=${{ steps.build-official.outputs.fap-artifacts }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "suffix=${{ steps.build-momentum.outputs.suffix }}" >> "$GITHUB_OUTPUT"
+            echo "artifacts=${{ steps.build-momentum.outputs.fap-artifacts }}" >> "$GITHUB_OUTPUT"
+          fi
       - name: Upload FAP
         uses: actions/upload-artifact@v6
         with:
-          name: pkmn_battle-${{ steps.build-app.outputs.suffix }}
-          path: ${{ steps.build-app.outputs.fap-artifacts }}
+          name: pkmn_battle-${{ matrix.name }}-${{ steps.outs.outputs.suffix }}
+          path: ${{ steps.outs.outputs.artifacts }}
 
   host:
     name: Host tests
