@@ -1,4 +1,4 @@
-# [GBC] Pokemon Battle
+# GBC Pokemon Battle
 
 Battle your Pokemon Crystal team against a Flipper Zero. The Flipper acts as the second Game Boy
 in a Cable Club Colosseum link battle: connect a Game Boy Color over a link cable, pick an
